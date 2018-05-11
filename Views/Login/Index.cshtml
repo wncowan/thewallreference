@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Form Submission";
+}
+
+<div>
+    @ViewBag.passworderror
+    @ViewBag.emailerror
+    @{
+        foreach(var error in ViewBag.Errors)
+        {
+            //If there are any errors for a field...
+            if(@error.Errors.Count > 0)
+            {
+                // We show the first error for that field
+                <p>@error.Errors[0].ErrorMessage</p>
+            }
+        }
+    }
+</div>
+
+<h1>Register a New User</h1>
+<form action="/register" method="post">
+<p><h3>First Name: <input type="text" name="first_name"></h3></p>
+<p><h3>Last Name: <input type="text" name="last_name"></h3></p>
+<p><h3>Email: <input type="text" name="Email"></h3></p>
+<p><h3>Password: <input type="text" name="Password"></h3></p>
+<p><h3>Password Confirmation: <input type="text" name="PasswordConfirmation"></h3></p>
+<button type ="submit">Submit</button>
+</form>
+
+<h1>Login To Your Account</h1>
+<form action="/login" method="post">
+<p><h3>Email: <input type="text" name="Email"></h3></p>
+<p><h3>Password: <input type="text" name="Password"></h3></p>
+<button type ="submit">Submit</button>
+</form>
+
+@ViewBag.LoginErrors

@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<h1>CodingDojo Wall -- Welcome, @ViewBag.user_name!</h1> <a href="logout">Logout</a><hr>
+<h4>Post a message:</h4>
+<form action="/message" method="POST">
+<p><textarea name = "message" cols="55" rows="3"></textarea></p><br>
+<input type = "submit" value="Post a message">
+</form>
+
+@foreach (var message in @ViewBag.AllMessages){
+    <p>Message:</p>
+    <p>@message["first_name"] - @message["created_at"]</p>
+    <p>@message["message"]</p>
+    <p>Comments:</p>
+    @foreach(var comment in @ViewBag.Comments){
+        if (@comment["message_id"] == @message["id"])
+        {
+            <p>@comment["first_name"] @comment["created_at"]</p>
+            <p>@comment["comment"]</p>
+        }
+    }
+
+    <form action="/comment" method="POST">
+    <p><textarea name = "comment" cols="55" rows="3"></textarea></p><br>
+    <input type="hidden" name="message_id" value='@message["id"]'>
+    <input type = "submit" value="Post a comment">
+    </form>
+
+}
+
+<p>Get to adding stuff!</p>
